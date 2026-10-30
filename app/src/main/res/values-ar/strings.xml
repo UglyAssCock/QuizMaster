@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">كويز ماستر</string>
+    <string name="welcome_back">مرحباً بعودتك في كويز ماستر!</string>
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_explore">استكشاف</string>
+    <string name="nav_play">العب</string>
+    <string name="nav_create">إنشاء</string>
+    <string name="nav_profile">الملف الشخصي</string>
+    <string name="daily_challenges">التحديات اليومية</string>
+    <string name="random_quiz">اختبار عشوائي</string>
+    <string name="offline_ready">الوضع غير المتصل نشط</string>
+</resources>
