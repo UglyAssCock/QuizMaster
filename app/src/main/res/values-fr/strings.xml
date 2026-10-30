@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">QuizMaster</string>
+    <string name="welcome_back">Bon retour sur QuizMaster !</string>
+    <string name="nav_home">Accueil</string>
+    <string name="nav_explore">Explorer</string>
+    <string name="nav_play">Jouer</string>
+    <string name="nav_create">Créer</string>
+    <string name="nav_profile">Profil</string>
+    <string name="daily_challenges">Défis Quotidiens</string>
+    <string name="random_quiz">Quiz Aléatoire</string>
+    <string name="offline_ready">Mode Hors-Ligne Actif</string>
+</resources>
