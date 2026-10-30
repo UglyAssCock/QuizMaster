@@ -1,0 +1,53 @@
+name: Build QuizMaster Android APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Inject Optional Firebase Config from GitHub Secret
+        env:
+          FIREBASE_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$FIREBASE_JSON" ]; then
+            echo "Injecting google-services.json from GitHub Secrets..."
+            echo "$FIREBASE_JSON" > app/google-services.json
+          else
+            echo "No GOOGLE_SERVICES_JSON secret found. Building in Offline-First Standalone Mode."
+          fi
+
+      - name: Generate Offline Packs and Compile Debug APK
+        run: gradle assembleDebug --stacktrace
+
+      - name: Run Unit Checks
+        run: gradle testDebugUnitTest --continue
+
+      - name: Upload Buildable QuizMaster APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: QuizMaster-Installable-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30
